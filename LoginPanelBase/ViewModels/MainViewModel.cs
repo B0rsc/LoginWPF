@@ -86,8 +86,56 @@ namespace LoginPanelBase.ViewModels
 
 
 
-                        LoginOrPasswordValidation.FinalVal(_login, _password, message);
-                        Error = message;
+                        if (ValidationNullable.NullVal(_login) == 1)
+                        {
+
+                            message = InfoMessages[0];
+                            Error = message;
+                           
+
+                        }
+                        else if (!ValidationIsFullyString.IsStringLogin(_login))
+                        {
+
+                            message = InfoMessages[2];
+                            Error = message;
+
+
+                        }
+                        else if (IsPasswordNull.PassNull(_password) == 1)
+                        {
+
+                            message = InfoMessages[1];
+                            Error = message;
+
+
+                        }
+                        else if (!ValidationPassword.IsPasswordCorrect(_password))
+                        {
+
+                            message =  InfoMessages[3];
+                            Error = message;
+
+
+
+                        } else if (!LoggingValidation.LoggingVal(_login, _password))
+                        {
+
+                            message = InfoMessages[7];
+                            Error = message;
+
+
+
+                        } else
+                        {
+
+                            message = InfoMessages[6];
+                            Error = message;
+
+
+                        }
+
+                        
 
 
 

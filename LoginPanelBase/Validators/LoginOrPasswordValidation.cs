@@ -14,50 +14,6 @@ namespace LoginPanelBase.Validators
     {
 
 
-        public static string FinalVal(string username, string password, string message)
-        {
-
-
-
-
-            if (ValidationNullable.NullVal(username) == 1)
-            {
-
-                message = MainViewModel.InfoMessages[0];
-                
-                return message;
-
-            }
-            else if (!ValidationIsFullyString.IsStringLogin(username))
-            {
-
-                message = MainViewModel.InfoMessages[2];
-                
-                return message;
-
-            }
-            else if (IsPasswordNull.PassNull(username) == 1)
-            {
-
-                message = MainViewModel.InfoMessages[1];
-                
-                return message;
-
-            }
-            else if (!ValidationPassword.IsPasswordCorrect(username))
-            {
-
-                message = MainViewModel.InfoMessages[3];
-                
-                return message;
-
-
-            }
-
-            return null;
-
-
-
-        }
+        
     }
 }
