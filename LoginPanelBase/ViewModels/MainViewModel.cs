@@ -16,18 +16,18 @@ namespace LoginPanelBase.ViewModels
     public class MainViewModel : ObservableObject
     {
 
-        private DatabaseContext databaseContext;
+
 
         public string message;
         private string _password;
 
-       List<string> ErrorMessages = new List<string>()
+        List<string> ErrorMessages = new List<string>()
         {
             {"Empty Login"}, // 0
             {"Empty password"}, // 1
             {"Wrong characters in Login"}, // 2
             {"Password doesn't meet the requirements"}, // 3
-
+            {"This user already exists - try to log in"} // 4
 
 
 
@@ -37,7 +37,7 @@ namespace LoginPanelBase.ViewModels
 
         };
 
-        
+
 
 
         public string Password
@@ -91,7 +91,7 @@ namespace LoginPanelBase.ViewModels
         public ICommand RegisterCommand
         {
 
-            
+
             get
             {
                 if (_registerCommand == null) _registerCommand = new RelayCommand(
@@ -103,19 +103,23 @@ namespace LoginPanelBase.ViewModels
                             message = ErrorMessages[0];
                             Error = message;
 
-                        } else if (ValidationNullable.NullVal(_login, _password) == 2)
+                        }
+                        else if (ValidationNullable.NullVal(_login, _password) == 2)
                         {
 
                             message = ErrorMessages[1];
                             Error = message;
 
 
-                        } else if (!ValidationIsFullyString.IsStringLogin(_login)) {
+                        }
+                        else if (!ValidationIsFullyString.IsStringLogin(_login))
+                        {
 
                             message = ErrorMessages[2];
                             Error = message;
 
-                        } else if (!ValidationPassword.IsPasswordCorrect(_password))
+                        }
+                        else if (!ValidationPassword.IsPasswordCorrect(_password))
                         {
 
                             message = ErrorMessages[3];
@@ -123,38 +127,60 @@ namespace LoginPanelBase.ViewModels
 
 
 
-                        } else
+                        }
+                        else
                         {
+                            if (!ValidationAlreadyRegistered.AlreadyRegistered(_login))
+                            {
 
-                            databaseContext = new();
 
-                            databaseContext.Users.Add(
 
-                                new User()
+
+
+                                using (DatabaseContext myContext = new DatabaseContext())
                                 {
 
-                                    Login = _login,
-                                    Password = _password
+                                    myContext.Users.Add(
 
-                                    s
+                                       new User()
+                                       {
+
+                                           Login = _login,
+                                           Password = _password,
+
+
+                                       }
+
+
+                                        );
+
+
+                                    myContext.SaveChanges();
+
                                 }
 
 
 
-                                );
 
-                            databaseContext.SaveChanges();
+                                message = "Register Completed!";
+                                Error = message;
 
-                            message = "Register Completed!";
-                            Error = message;
 
+                            }
+
+
+
+
+                            else
+                            {
+
+                                message = ErrorMessages[4];
+                                Error = message;
+
+
+
+                            }
                         }
-
-                        
-
-
-
-
                         #region addingToDatabase             
                         /* else
                         {
@@ -198,9 +224,9 @@ namespace LoginPanelBase.ViewModels
             }
         }
 
-          private string _error;
-          public string Error
-          {
+        private string _error;
+        public string Error
+        {
 
 
             get
@@ -219,6 +245,6 @@ namespace LoginPanelBase.ViewModels
 
         }
 
-        }
     }
+}
 
