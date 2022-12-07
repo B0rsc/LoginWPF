@@ -21,13 +21,16 @@ namespace LoginPanelBase.ViewModels
         public string message;
         private string _password;
 
-        List<string> ErrorMessages = new List<string>()
+       public static List<string> InfoMessages = new List<string>()
         {
-            {"Empty Login"}, // 0
+            {"Empty login"}, // 0
             {"Empty password"}, // 1
             {"Wrong characters in Login"}, // 2
             {"Password doesn't meet the requirements"}, // 3
-            {"This user already exists - try to log in"} // 4
+            {"Register successful!" }, // 4
+            {"This user already exists - try to log in"}, //5
+            {"Login successful!"}, // 6
+            {"Login unsucessful :("} // 7
 
 
 
@@ -82,6 +85,15 @@ namespace LoginPanelBase.ViewModels
 
 
 
+
+                        LoginOrPasswordValidation.FinalVal(_login, _password, message);
+                        Error = message;
+
+
+
+
+
+
                     });
                 return _loginCommand;
             }
@@ -97,41 +109,7 @@ namespace LoginPanelBase.ViewModels
                 if (_registerCommand == null) _registerCommand = new RelayCommand(
                     (object o) =>
                     {
-                        if (ValidationNullable.NullVal(_login, _password) == 1)
-                        {
-
-                            message = ErrorMessages[0];
-                            Error = message;
-
-                        }
-                        else if (ValidationNullable.NullVal(_login, _password) == 2)
-                        {
-
-                            message = ErrorMessages[1];
-                            Error = message;
-
-
-                        }
-                        else if (!ValidationIsFullyString.IsStringLogin(_login))
-                        {
-
-                            message = ErrorMessages[2];
-                            Error = message;
-
-                        }
-                        else if (!ValidationPassword.IsPasswordCorrect(_password))
-                        {
-
-                            message = ErrorMessages[3];
-                            Error = message;
-
-
-
-                        }
-                        else
-                        {
-                            if (!ValidationAlreadyRegistered.AlreadyRegistered(_login))
-                            {
+                      
 
 
 
@@ -162,58 +140,7 @@ namespace LoginPanelBase.ViewModels
 
 
 
-                                message = "Register Completed!";
-                                Error = message;
-
-
-                            }
-
-
-
-
-                            else
-                            {
-
-                                message = ErrorMessages[4];
-                                Error = message;
-
-
-
-                            }
-                        }
-                        #region addingToDatabase             
-                        /* else
-                        {
-
-
-
-
-                            databaseContext = new();
-
-                            databaseContext.Users.Add(
-
-                                new User()
-                                {
-
-                                    Login = _login,
-                                    Password = _password
-
-
-                                }
-
-
-
-                                );
-
-                            databaseContext.SaveChanges();
-
-
-
-                        }
-
-                        */
-
-                        #endregion
+                               
                     });
 
                 return _registerCommand;
@@ -227,7 +154,6 @@ namespace LoginPanelBase.ViewModels
         private string _error;
         public string Error
         {
-
 
             get
             {

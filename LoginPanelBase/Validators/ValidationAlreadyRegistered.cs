@@ -27,13 +27,14 @@ namespace LoginPanelBase.Validators
 
                     return true;
 
-                } else
+                }
+                else
 
-                { 
-                    
+                {
+
                     return false;
-                
-                
+
+
                 }
 
 
@@ -41,19 +42,9 @@ namespace LoginPanelBase.Validators
             }
 
 
-            
 
 
-
-
-
-    }
-
-
-
-
-
-
+        }
 
 
 

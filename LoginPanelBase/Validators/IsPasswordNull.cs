@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LoginPanelBase.ViewModels;
+using LoginPanelBase.Model;
 
-namespace LoginPanelBase
+namespace LoginPanelBase.Validators
 {
-    public class ValidationNullable
+    public class IsPasswordNull
     {
-     
-        public static byte NullVal(string login)
+
+        public static byte PassNull(string password)
         {
 
-            if (string.IsNullOrWhiteSpace(login))
+
+            if (string.IsNullOrEmpty(password))
             {
 
                 return 1;
@@ -22,9 +23,10 @@ namespace LoginPanelBase
             }
             return 0;
 
-
-
-
         }
+
+
+
+
     }
 }

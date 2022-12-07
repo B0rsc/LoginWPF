@@ -13,8 +13,16 @@ namespace LoginPanelBase.Validators
         public static bool IsStringLogin (string login)
         {
 
-            Regex.Replace(login, @"\s+", "");
+            try
+            {
 
+                Regex.Replace(login, @"\s+", "");
+            } catch
+            {
+
+                return false;
+
+            }
             bool containsNumbersLogin = login.All(c => (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
             bool isStringLogin = login.All(Char.IsLetter);
 
