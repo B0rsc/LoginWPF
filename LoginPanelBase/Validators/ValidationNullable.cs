@@ -10,23 +10,25 @@ namespace LoginPanelBase
     public class ValidationNullable
     {
      
-        public static int NullVal(string login, string password)
+        public static byte NullVal(string login, string password)
         {
-            
-            if (login == null || login.Length == 0)
+
+            if (string.IsNullOrWhiteSpace(login))
             {
+
+                return 1;
+
+
+            }
+            else if (string.IsNullOrWhiteSpace(password))
+            {
+                return 2;
+
+
+            }
+            else
 
                 return 0;
-
-
-            } else if (password == null || password.Length == 0)
-            {
-                return 1;
-                
-
-            } else 
-
-            return 2;
 
 
 

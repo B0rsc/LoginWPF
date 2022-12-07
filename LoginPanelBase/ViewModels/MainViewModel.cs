@@ -8,6 +8,8 @@ using System.Windows.Input;
 using UnitsConverterApp.Commands;
 using LoginPanelBase.Model;
 using System.Diagnostics;
+using LoginPanelBase.Validators;
+using System.IO;
 
 namespace LoginPanelBase.ViewModels
 {
@@ -18,6 +20,26 @@ namespace LoginPanelBase.ViewModels
 
         public string message;
         private string _password;
+
+       List<string> ErrorMessages = new List<string>()
+        {
+            {"Empty Login"}, // 0
+            {"Empty password"}, // 1
+            {"Wrong characters in Login"}, // 2
+            {"Password doesn't meet the requirements"}, // 3
+
+
+
+
+
+
+
+
+        };
+
+        
+
+
         public string Password
         {
             get
@@ -68,27 +90,73 @@ namespace LoginPanelBase.ViewModels
         private ICommand _registerCommand;
         public ICommand RegisterCommand
         {
+
+            
             get
             {
                 if (_registerCommand == null) _registerCommand = new RelayCommand(
                     (object o) =>
                     {
-                        if (ValidationNullable.NullVal(_login, _password) == 0)
+                        if (ValidationNullable.NullVal(_login, _password) == 1)
                         {
 
-                            message = "Nie podano loginu";
+                            message = ErrorMessages[0];
+                            Error = message;
+
+                        } else if (ValidationNullable.NullVal(_login, _password) == 2)
+                        {
+
+                            message = ErrorMessages[1];
                             Error = message;
 
 
-                        } else if (ValidationNullable.NullVal(_login, _password) == 1)
-                        {
+                        } else if (!ValidationIsFullyString.IsStringLogin(_login)) {
 
-                            message = "Nie podano hasła";
+                            message = ErrorMessages[2];
                             Error = message;
 
+                        } else if (!ValidationPassword.IsPasswordCorrect(_password))
+                        {
+
+                            message = ErrorMessages[3];
+                            Error = message;
+
+
+
+                        } else
+                        {
+
+                            databaseContext = new();
+
+                            databaseContext.Users.Add(
+
+                                new User()
+                                {
+
+                                    Login = _login,
+                                    Password = _password
+
+                                    s
+                                }
+
+
+
+                                );
+
+                            databaseContext.SaveChanges();
+
+                            message = "Register Completed!";
+                            Error = message;
 
                         }
-                        else
+
+                        
+
+
+
+
+                        #region addingToDatabase             
+                        /* else
                         {
 
 
@@ -117,7 +185,9 @@ namespace LoginPanelBase.ViewModels
 
                         }
 
+                        */
 
+                        #endregion
                     });
 
                 return _registerCommand;
