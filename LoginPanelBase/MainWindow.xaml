@@ -1,0 +1,69 @@
+﻿<Window x:Class="LoginPanelBase.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LoginPanelBase"
+        xmlns:vm="clr-namespace:LoginPanelBase.ViewModels"
+        xmlns:ph="clr-namespace:LoginPanelBase.ViewUtils"
+        mc:Ignorable="d"
+        Title="MainWindow" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
+
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+
+    <Grid Height="350" Width="550">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="80"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label Content="LOGIN/REGISTER PANEL" 
+                   FontSize="22"
+                   FontWeight="ExtraLight" 
+                   Foreground="#FF2C9AD8"/>
+        </Grid>
+
+        <StackPanel Grid.Row="2" Grid.Column="1">
+            <TextBlock Text="Login:" FontSize="16" Margin="0 0 0 10"/>
+            <TextBox Text="{Binding Login}"
+                     Height="40"
+                     Padding="5 0 5 0"
+                     VerticalContentAlignment="Center" 
+                     Margin="0 0 0 20"/>
+
+            <TextBlock Text="Password:" FontSize="16" Margin="0 0 0 10"/>
+            <PasswordBox ph:PasswordHelper.Attach="True"
+                         ph:PasswordHelper.Password="{Binding Password, Mode=TwoWay}"
+                         Height="40"
+                         Padding="5 0 5 0"
+                         VerticalContentAlignment="Center"
+                         Margin="0 0 0 10"/>
+
+            <WrapPanel Margin="0 0 0 10">
+                <Button Command="{Binding LoginCommand}"
+                        Content="Login"
+                        Height="40" 
+                        Width="190" 
+                        Margin="0 0 10 0"/>
+                <Button Command="{Binding RegisterCommand}"
+                        Content="Register"
+                        Height="40" 
+                        Width="190"/>
+            </WrapPanel>
+            <Label Content = "{Binding Error}"/>
+
+            <TextBlock Text="{Binding Message}"/>
+        </StackPanel>
+    </Grid>
+</Window>
