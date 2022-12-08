@@ -25,6 +25,7 @@ namespace LoginPanelBase.Validators
             }
             bool containsNumbersLogin = login.All(c => (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
             bool isStringLogin = login.All(Char.IsLetter);
+            
 
             
 

@@ -10,16 +10,22 @@ using LoginPanelBase.Model;
 using System.Diagnostics;
 using LoginPanelBase.Validators;
 using System.IO;
+using System.Windows;
+using System.Net.Mail;
+using System.Reflection;
+using System.Windows.Markup;
+using LoginPanelBase.MessageBoxHelper;
 
 namespace LoginPanelBase.ViewModels
 {
     public class MainViewModel : ObservableObject
     {
 
+       
 
-
-        public string message;
+        string message;
         private string _password;
+        
 
         public static List<string> InfoMessages = new List<string>()
         {
@@ -92,15 +98,21 @@ namespace LoginPanelBase.ViewModels
                         {
                             case 6:
                                 message = InfoMessages[6];
-                                Error = message;
+                                
+                                MessageBoxClass.MessageBoxFun(message);
+
                                 break;
                             case 7:
                                 message = InfoMessages[7];
-                                Error = message;
+                               
+                                MessageBoxClass.MessageBoxFun(message);
+
                                 break;
                             case 8:
                                 message = InfoMessages[8];
-                                Error = message;
+                               
+                                MessageBoxClass.MessageBoxFun(message);
+
                                 break;
 
 
@@ -109,7 +121,7 @@ namespace LoginPanelBase.ViewModels
                         }
 
 
-                        
+
 
 
 
@@ -137,26 +149,33 @@ namespace LoginPanelBase.ViewModels
                         {
                             case 0:
                                 message = InfoMessages[0];
-                                Error = message;
+                                
+                                MessageBoxClass.MessageBoxFun(message);
 
                                 break;
                             case 1:
                                 message = InfoMessages[1];
-                                Error = message;
+                               
+                                MessageBoxClass.MessageBoxFun(message);
 
                                 break;
                             case 2:
                                 message = InfoMessages[2];
-                                Error = message;
+                               
+                                MessageBoxClass.MessageBoxFun(message);
+
                                 break;
                             case 3:
                                 message = InfoMessages[3];
-                                Error = message;
+                                
+                                MessageBoxClass.MessageBoxFun(message);
+
                                 break;
                             case 4:
                                 message = InfoMessages[4];
-                                Error = message;
+                               
                                 DatabaseAdding.AddingToDatabadse(_login, _password);
+                                MessageBoxClass.MessageBoxFun(message);
                                 break;
 
 
@@ -185,7 +204,7 @@ namespace LoginPanelBase.ViewModels
             }
         }
 
-        private string _error;
+      /*  private string _error;
         public string Error
         {
 
@@ -204,7 +223,7 @@ namespace LoginPanelBase.ViewModels
             }
 
         }
-
+      */
     }
 }
 

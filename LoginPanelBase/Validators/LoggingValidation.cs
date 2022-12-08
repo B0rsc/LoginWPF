@@ -25,21 +25,21 @@ namespace LoginPanelBase.Validators
                 var loginQuery = MyContext.Users.Any(User => User.Login.Equals(login));
 
                 var passwordQuery = MyContext.Users.Any(User => User.Password.Equals(password));
-                
 
 
 
-              /*  foreach (var item in MyContext.Users)
-                {
+                /*
+                               foreach (var item in MyContext.Users)
+                                {
 
-                    MyContext.Users.Remove(item);
+                                    MyContext.Users.Remove(item);
 
 
 
-                }
-                MyContext.SaveChanges();
-              */
+                                }
+                                MyContext.SaveChanges();
 
+                */
 
 
                 if (loginQuery == false)
