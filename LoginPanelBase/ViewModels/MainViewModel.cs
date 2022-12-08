@@ -21,7 +21,7 @@ namespace LoginPanelBase.ViewModels
         public string message;
         private string _password;
 
-       public static List<string> InfoMessages = new List<string>()
+        public static List<string> InfoMessages = new List<string>()
         {
             {"Empty login"}, // 0
             {"Empty password"}, // 1
@@ -30,7 +30,8 @@ namespace LoginPanelBase.ViewModels
             {"Register successful!" }, // 4
             {"This user already exists - try to log in"}, //5
             {"Login successful!"}, // 6
-            {"Login unsucessful :("} // 7
+            {"Login unsucessful :("}, // 7
+            {"User not found - register" } // 8
 
 
 
@@ -84,59 +85,31 @@ namespace LoginPanelBase.ViewModels
                     {
 
 
+                        byte CheckLogin = LoggingValidation.LoggingVal(_login, _password);
 
 
-                        if (ValidationNullable.NullVal(_login) == 1)
+                        switch (CheckLogin)
                         {
+                            case 6:
+                                message = InfoMessages[6];
+                                Error = message;
+                                break;
+                            case 7:
+                                message = InfoMessages[7];
+                                Error = message;
+                                break;
+                            case 8:
+                                message = InfoMessages[8];
+                                Error = message;
+                                break;
 
-                            message = InfoMessages[0];
-                            Error = message;
-                           
 
-                        }
-                        else if (!ValidationIsFullyString.IsStringLogin(_login))
-                        {
-
-                            message = InfoMessages[2];
-                            Error = message;
-
-
-                        }
-                        else if (IsPasswordNull.PassNull(_password) == 1)
-                        {
-
-                            message = InfoMessages[1];
-                            Error = message;
 
 
                         }
-                        else if (!ValidationPassword.IsPasswordCorrect(_password))
-                        {
 
-                            message =  InfoMessages[3];
-                            Error = message;
-
-
-
-                        } else if (!LoggingValidation.LoggingVal(_login, _password))
-                        {
-
-                            message = InfoMessages[7];
-                            Error = message;
-
-
-
-                        } else
-                        {
-
-                            message = InfoMessages[6];
-                            Error = message;
-
-
-                        }
 
                         
-
 
 
 
@@ -157,38 +130,51 @@ namespace LoginPanelBase.ViewModels
                 if (_registerCommand == null) _registerCommand = new RelayCommand(
                     (object o) =>
                     {
-                      
+
+                        byte a = RegisterFullyValidated.isRegisterValid(_login, _password);
+
+                        switch (a)
+                        {
+                            case 0:
+                                message = InfoMessages[0];
+                                Error = message;
+
+                                break;
+                            case 1:
+                                message = InfoMessages[1];
+                                Error = message;
+
+                                break;
+                            case 2:
+                                message = InfoMessages[2];
+                                Error = message;
+                                break;
+                            case 3:
+                                message = InfoMessages[3];
+                                Error = message;
+                                break;
+                            case 4:
+                                message = InfoMessages[4];
+                                Error = message;
+                                DatabaseAdding.AddingToDatabadse(_login, _password);
+                                break;
+
+
+
+
+                        }
 
 
 
 
 
-                                using (DatabaseContext myContext = new DatabaseContext())
-                                {
-
-                                    myContext.Users.Add(
-
-                                       new User()
-                                       {
-
-                                           Login = _login,
-                                           Password = _password,
-
-
-                                       }
-
-
-                                        );
-
-
-                                    myContext.SaveChanges();
-
-                                }
 
 
 
 
-                               
+
+
+
                     });
 
                 return _registerCommand;
