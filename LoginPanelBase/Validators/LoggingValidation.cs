@@ -28,18 +28,18 @@ namespace LoginPanelBase.Validators
 
 
 
-               // CLEARING DATABASE
-                               foreach (var item in MyContext.Users)
-                                {
+                // CLEARING DATABASE
+                foreach (var item in MyContext.Users)
+                {
 
-                                    MyContext.Users.Remove(item);
+                    MyContext.Users.Remove(item);
 
 
 
-                                }
-                                MyContext.SaveChanges();
+                }
+                MyContext.SaveChanges();
 
-                
+
 
 
                 if (loginQuery == false)

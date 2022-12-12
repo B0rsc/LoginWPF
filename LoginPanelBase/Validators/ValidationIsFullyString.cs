@@ -10,26 +10,27 @@ namespace LoginPanelBase.Validators
     public class ValidationIsFullyString
     {
 
-        public static bool IsStringLogin (string login)
+        public static bool IsStringLogin(string login)
         {
 
             try
             {
 
                 Regex.Replace(login, @"\s+", "");
-            } catch
+            }
+            catch
             {
 
                 return false;
 
             }
-            
+
             bool isStringLogin = login.All(Char.IsLetter);
-            
 
-            
 
-            if ( login.Length < 3 && isStringLogin )
+
+
+            if (login.Length < 3 && isStringLogin)
             {
 
                 return false;

@@ -19,7 +19,6 @@ namespace LoginPanelBase.Validators
             if (ValidationNullable.NullVal(login) == 1)
             {
 
-
                 return 0;
 
             }

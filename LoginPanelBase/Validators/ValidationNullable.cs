@@ -22,9 +22,6 @@ namespace LoginPanelBase
             }
             return 0;
 
-
-
-
         }
     }
 }

@@ -189,15 +189,6 @@ namespace LoginPanelBase.ViewModels
 
 
 
-
-
-
-
-
-
-
-
-
                     }); return _registerCommand;
 
 
@@ -207,26 +198,7 @@ namespace LoginPanelBase.ViewModels
             }
         }
 
-        /*  private string _error;
-          public string Error
-          {
-
-              get
-              {
-
-                  return _error;
-
-              }
-
-              set
-              {
-
-                  _error = message;
-                  OnPropertyChanged(nameof(Error));
-              }
-
-          }
-        */
+      
     }
 }
 
