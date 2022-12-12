@@ -23,13 +23,13 @@ namespace LoginPanelBase.Validators
                 return false;
 
             }
-            bool containsNumbersLogin = login.All(c => (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
+            
             bool isStringLogin = login.All(Char.IsLetter);
             
 
             
 
-            if (containsNumbersLogin == false && isStringLogin)
+            if ( login.Length < 3 && isStringLogin )
             {
 
                 return false;

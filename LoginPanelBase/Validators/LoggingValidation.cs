@@ -28,7 +28,7 @@ namespace LoginPanelBase.Validators
 
 
 
-                /*
+               // CLEARING DATABASE
                                foreach (var item in MyContext.Users)
                                 {
 
@@ -39,7 +39,7 @@ namespace LoginPanelBase.Validators
                                 }
                                 MyContext.SaveChanges();
 
-                */
+                
 
 
                 if (loginQuery == false)

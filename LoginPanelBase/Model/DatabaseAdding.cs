@@ -9,7 +9,7 @@ namespace LoginPanelBase.Model
     public class DatabaseAdding
     {
 
-        public static bool AddingToDatabadse (string login, string password)
+        public static bool AddingToDatabadse(string login, string password)
         {
 
             using (DatabaseContext myContext = new DatabaseContext())
@@ -33,9 +33,9 @@ namespace LoginPanelBase.Model
                 myContext.SaveChanges();
                 return true;
 
-            } 
+            }
 
-            
+
 
 
 

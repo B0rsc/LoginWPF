@@ -15,37 +15,34 @@ using System.Net.Mail;
 using System.Reflection;
 using System.Windows.Markup;
 using LoginPanelBase.MessageBoxHelper;
+using System.Collections;
 
 namespace LoginPanelBase.ViewModels
 {
     public class MainViewModel : ObservableObject
     {
 
-       
+
 
         string message;
+       
         private string _password;
         
-
-        public static List<string> InfoMessages = new List<string>()
-        {
-            {"Empty login"}, // 0
-            {"Empty password"}, // 1
-            {"Wrong characters in Login"}, // 2
-            {"Password doesn't meet the requirements"}, // 3
-            {"Register successful!" }, // 4
-            {"This user already exists - try to log in"}, //5
-            {"Login successful!"}, // 6
-            {"Login unsucessful :("}, // 7
-            {"User not found - register" } // 8
+        public string LoginEmpty;
+        
+        public string PasswordEmpty;
+        
+        public string WrongChars;
+        
+        public string PassRequirements;
+        
+        public string RegSucc;
 
 
 
 
+        public Dictionary<string, string> InfoDictionary = new Dictionary<string, string>();
 
-
-
-        };
 
 
 
@@ -89,6 +86,9 @@ namespace LoginPanelBase.ViewModels
                 if (_loginCommand == null) _loginCommand = new RelayCommand(
                     (object o) =>
                     {
+                        InfoDictionary.Add("LogSucc", "Login successful!");
+                        InfoDictionary.Add("LogUnSucc", "Login unsuccessful :(");
+                        InfoDictionary.Add("UserNotFound", "User not found - register now");
 
 
                         byte CheckLogin = LoggingValidation.LoggingVal(_login, _password);
@@ -97,20 +97,20 @@ namespace LoginPanelBase.ViewModels
                         switch (CheckLogin)
                         {
                             case 6:
-                                message = InfoMessages[6];
-                                
+                                message = InfoDictionary["LogSucc"];
+
                                 MessageBoxClass.MessageBoxFun(message);
 
                                 break;
                             case 7:
-                                message = InfoMessages[7];
-                               
+                                message = InfoDictionary["LogUnSucc"];
+
                                 MessageBoxClass.MessageBoxFun(message);
 
                                 break;
                             case 8:
-                                message = InfoMessages[8];
-                               
+                                message = InfoDictionary["UserNotFound"];
+
                                 MessageBoxClass.MessageBoxFun(message);
 
                                 break;
@@ -133,6 +133,7 @@ namespace LoginPanelBase.ViewModels
         }
 
         private ICommand _registerCommand;
+
         public ICommand RegisterCommand
         {
 
@@ -142,42 +143,45 @@ namespace LoginPanelBase.ViewModels
                 if (_registerCommand == null) _registerCommand = new RelayCommand(
                     (object o) =>
                     {
+                        InfoDictionary.Clear();
+                        InfoDictionary.Add("LoginEmpty", "Empty login");
+                        InfoDictionary.Add("PasswordEmpty", "Empty password");
+                        InfoDictionary.Add("WrongChars", "Wrong characters in Login");
+                        InfoDictionary.Add("PassRequirements", "Password doesn't meet the requirements");
+                        InfoDictionary.Add("RegSucc", "Register successful");
+                        InfoDictionary.Add("UserExists", "This user already exists - try to log in");
+
+
 
                         byte a = RegisterFullyValidated.isRegisterValid(_login, _password);
 
                         switch (a)
                         {
                             case 0:
-                                message = InfoMessages[0];
-                                
+                                message = InfoDictionary["LoginEmpty"];
                                 MessageBoxClass.MessageBoxFun(message);
-
                                 break;
                             case 1:
-                                message = InfoMessages[1];
-                               
+                                message = InfoDictionary["PasswordEmpty"];
                                 MessageBoxClass.MessageBoxFun(message);
-
                                 break;
                             case 2:
-                                message = InfoMessages[2];
-                               
+                                message = InfoDictionary["WrongChars"];
                                 MessageBoxClass.MessageBoxFun(message);
-
                                 break;
                             case 3:
-                                message = InfoMessages[3];
-                                
+                                message = InfoDictionary["PassRequirements"];
                                 MessageBoxClass.MessageBoxFun(message);
-
                                 break;
                             case 4:
-                                message = InfoMessages[4];
-                               
+                                message = InfoDictionary["RegSucc"];
                                 DatabaseAdding.AddingToDatabadse(_login, _password);
                                 MessageBoxClass.MessageBoxFun(message);
                                 break;
-
+                            case 5:
+                                message = InfoDictionary["UserExists"];
+                                MessageBoxClass.MessageBoxFun(message);
+                                break;
 
 
 
@@ -194,9 +198,8 @@ namespace LoginPanelBase.ViewModels
 
 
 
-                    });
+                    }); return _registerCommand;
 
-                return _registerCommand;
 
 
 
@@ -204,26 +207,26 @@ namespace LoginPanelBase.ViewModels
             }
         }
 
-      /*  private string _error;
-        public string Error
-        {
+        /*  private string _error;
+          public string Error
+          {
 
-            get
-            {
+              get
+              {
 
-                return _error;
+                  return _error;
 
-            }
+              }
 
-            set
-            {
+              set
+              {
 
-                _error = message;
-                OnPropertyChanged(nameof(Error));
-            }
+                  _error = message;
+                  OnPropertyChanged(nameof(Error));
+              }
 
-        }
-      */
+          }
+        */
     }
 }
 
