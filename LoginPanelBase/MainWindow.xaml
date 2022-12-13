@@ -15,13 +15,13 @@
 
     <StackPanel>
 
-        <Label Content="Juventus Login Panel" Width="94" />
+        <Label Content="Juventus Login Panel" Width="119" />
 
-      <Label Content="Login"  Width="35"/>
+      <Label Content="Login"  Width="40"/>
 
     <TextBox Text="{Binding Login}" Width="330" Height="25"  />
         
-        <Label Content="Password"  Width="50"/>
+        <Label Content="Password"  Width="62"/>
         
         <PasswordBox ph:PasswordHelper.Attach="True"
                          ph:PasswordHelper.Password="{Binding Password, Mode=TwoWay}" Width="330" Height="25"/>
