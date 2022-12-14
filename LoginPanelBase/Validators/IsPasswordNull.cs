@@ -17,6 +17,7 @@ namespace LoginPanelBase.Validators
             if (string.IsNullOrEmpty(password))
             {
 
+               
                 return 1;
 
 
