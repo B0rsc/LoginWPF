@@ -86,8 +86,6 @@ namespace LoginPanelBase.ViewModels
                 if (_loginCommand == null) _loginCommand = new RelayCommand(
                     (object o) =>
                     {
-
-                        InfoDictionary.Clear();
                         InfoDictionary.Add("LogSucc", "Login successful!");
                         InfoDictionary.Add("LogUnSucc", "Login unsuccessful :(");
                         InfoDictionary.Add("UserNotFound", "User not found - register now");

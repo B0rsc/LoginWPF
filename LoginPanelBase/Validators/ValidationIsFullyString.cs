@@ -30,15 +30,23 @@ namespace LoginPanelBase.Validators
 
 
 
-            if (login.Length < 3 && isStringLogin)
+            if (login.Length < 3)
             {
 
                 return false;
 
 
             }
+            else if (isStringLogin)
+            {
 
-            return true;
+            
+                return true;
+
+
+            }
+
+
 
 
 
